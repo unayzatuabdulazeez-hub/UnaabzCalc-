@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'sha256-ulT+Nm6nI0wfCwnYCOoip4IIj2v2yfnnGBVhZmG00SY=' 'sha256-3mMbSFHEoM166vF+zwAY/Z8qjBhFEaI1UYrpody/Gnc='; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'sha256-ulT+Nm6nI0wfCwnYCOoip4IIj2v2yfnnGBVhZmG00SY=' 'sha256-T9mfy5G/ZTOaTChTF2T03ZTLi4O4ZfCPxvU6nRDW8dU='; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UnaabzCalc – Free Business Calculators for Nigerian Vendors</title>
 <meta name="description" content="Free profit, pricing, discount, expense and loan calculators for Nigerian vendors and small businesses. Works in Naira. Your numbers never leave your device.">
@@ -546,7 +546,7 @@ function renderCalc(id) {
     if (r.premium) { err.textContent = ''; showPremium(res, r); return; }
     if (!r.ok) { err.textContent = r.error; res.hidden = true; const bad = def.fields.find((f) => f.type !== 'rows' && f.type !== 'select' && !Number.isFinite(v[f.id])); if (bad) { holders[bad.id].setAttribute('aria-invalid', 'true'); holders[bad.id].focus(); } return; }
     err.textContent = '';
-    showResult(res, def.view(r, v));
+    showResult(res, def.view(r, v), meta.name);
   };
   form.addEventListener('submit', (e) => { e.preventDefault(); run(); redo = run; });
   reset.addEventListener('click', () => renderCalc(id));
@@ -558,7 +558,15 @@ function showPremium(box, r) {
   box.replaceChildren(); box.hidden = false;
   box.append(h('div', { class: 'prem' }, h('h2', {}, 'Above the Free version limit'), h('p', {}, r.message), h('p', { class: 'note' }, r.limit + '. Everything under this limit is fully calculated for free.')));
 }
-function showResult(box, v) {
+// Share is user-initiated: nothing is sent anywhere unless the person taps the button.
+async function share(name, v, msg) {
+  const site = location.protocol.startsWith('http') ? location.origin : '';
+  const text = [name, ''].concat(v.rows.map(([k, val]) => `${k}: ${val}`), ['', 'Calculated with UnaabzCalc. Calculate Better. Sell Smarter.' + (site ? ' ' + site : '')]).join('\n');
+  try { if (navigator.share) { await navigator.share({ title: name, text }); msg.textContent = ''; return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+  try { await navigator.clipboard.writeText(text); msg.textContent = 'Result copied. Paste it into WhatsApp or any chat.'; }
+  catch (e) { window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener'); }
+}
+function showResult(box, v, name) {
   box.replaceChildren(); box.hidden = false;
   v.rows.forEach(([k, val, cls], i) => {
     if (i === 0) box.append(h('div', { class: 'hero-r ' + (cls || '') }, h('div', { class: 'k' }, k), h('div', { class: 'v' }, val)));
@@ -566,6 +574,8 @@ function showResult(box, v) {
   });
   if (v.table) box.append(h('div', { class: 'tw', tabindex: '0', role: 'region', 'aria-label': 'Results table' }, h('table', {}, h('thead', {}, h('tr', {}, v.table.head.map((x) => h('th', { scope: 'col' }, x)))), h('tbody', {}, v.table.body.map((r) => h('tr', {}, r.map((c) => Array.isArray(c) ? h('td', { class: c[1] }, c[0]) : h('td', {}, c))))))));
   if (v.note) box.append(h('p', { class: 'note' }, v.note));
+  const msg = h('p', { class: 'note', role: 'status' });
+  box.append(h('button', { type: 'button', class: 'btn o', style: 'margin-top:14px;width:100%', onclick: () => share(name, v, msg) }, 'Share result'), msg);
 }
 
 /* ---------- Basic calculator ---------- */
