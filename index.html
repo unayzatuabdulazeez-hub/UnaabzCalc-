@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'sha256-ulT+Nm6nI0wfCwnYCOoip4IIj2v2yfnnGBVhZmG00SY=' 'sha256-3mMbSFHEoM166vF+zwAY/Z8qjBhFEaI1UYrpody/Gnc='; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UnaabzCalc – Free Business Calculators for Nigerian Vendors</title>
+<meta name="description" content="Free profit, pricing, discount, expense and loan calculators for Nigerian vendors and small businesses. Works in Naira. Your numbers never leave your device.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UnaabzCalc">
+<meta property="og:title" content="UnaabzCalc – Calculate Better. Sell Smarter.">
+<meta property="og:description" content="Calculate pricing, profit, expenses and loans in Naira. Free, fast and private.">
+<meta name="theme-color" content="#0b5d3b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b5d3b'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23f2a900' font-family='Arial' font-weight='700'%3E%E2%82%A6%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#f2f6f4;--card:#fff;--ink:#12261d;--mute:#4a5f55;--line:#dbe5df;--brand:#0b5d3b;--brand2:#084a2f;--soft:#e3f1ea;--gold:#f2a900;--bad:#b42318;--good:#0b6b43}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.w{max-width:1080px;margin:0 auto;padding:0 18px}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 0}
+.logo{font-weight:800;font-size:1.35rem;text-decoration:none;color:var(--brand);letter-spacing:-.02em}
+.logo b{color:var(--gold)}
+nav{display:flex;gap:2px;flex:1;flex-wrap:wrap}
+nav a{padding:8px 12px;border-radius:10px;text-decoration:none;color:var(--mute);font-weight:600}
+nav a:hover{background:var(--soft);color:var(--brand)}
+.cur{width:auto;min-height:40px;padding:6px 10px}
+h1,h2,h3{line-height:1.2;letter-spacing:-.02em;margin:0 0 .5em}
+.hero{background:var(--brand);color:#fff;padding:56px 0 64px}
+.hero h1{font-size:clamp(2rem,6vw,3.4rem);max-width:15ch;margin-bottom:.4em}
+.hero p.kick{font-size:1rem;font-weight:700;letter-spacing:.04em;color:var(--gold);margin:0 0 .7em}
+.hero p{font-size:1.15rem;max-width:52ch;color:#d4eadf;margin:0 0 1.6em}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 22px;border-radius:12px;border:2px solid transparent;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}
+.btn.p{background:var(--gold);color:#241a00}.btn.p:hover{background:#ffbb1f}
+.btn.s{border-color:#8fc4a9;color:#fff;background:transparent}.btn.s:hover{background:#0d6d46}
+.btn.g{background:var(--brand);color:#fff}.btn.g:hover{background:var(--brand2)}
+.btn.o{background:#fff;color:var(--brand);border-color:var(--line)}.btn.o:hover{background:var(--soft)}
+section{padding:44px 0}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.tile{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;text-decoration:none;box-shadow:0 1px 2px rgba(18,38,29,.06)}
+.tile:hover{border-color:var(--brand);box-shadow:0 4px 14px rgba(11,93,59,.12)}
+.tile h3{font-size:1.05rem;margin-bottom:.3em;color:var(--brand)}
+.tile p{margin:0;color:var(--mute);font-size:.94rem}
+.tag{display:inline-block;margin-top:10px;font-size:.78rem;font-weight:700;background:var(--soft);color:var(--brand);padding:2px 10px;border-radius:99px}
+.plans{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.plan{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+.plan.pr{border-style:dashed;background:#fbfdfc}
+.plan ul{padding-left:1.1em;color:var(--mute);margin:.6em 0 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 1px 2px rgba(18,38,29,.06);margin-bottom:16px}
+.lead{color:var(--mute);max-width:62ch}
+.back{display:inline-block;margin:18px 0 6px;color:var(--brand);font-weight:600}
+label,.lab{display:block;font-weight:600;font-size:.93rem;margin:14px 0 5px}
+input,select{font:inherit;color:var(--ink);background:#fff;width:100%;min-height:46px;padding:10px 12px;border:1px solid #b9cbc1;border-radius:10px}
+input[aria-invalid=true]{border-color:var(--bad)}
+.err{color:var(--bad);font-weight:600;margin:12px 0 0;min-height:1.2em}
+.acts{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.acts .btn{flex:1 1 140px}
+.res{margin-top:4px}
+.hero-r{background:var(--soft);border-radius:14px;padding:16px;margin-bottom:12px}
+.hero-r .k{color:var(--mute);font-size:.92rem}
+.hero-r .v{font-size:clamp(1.6rem,6vw,2.3rem);font-weight:800;color:var(--brand);overflow-wrap:anywhere}
+.good .v{color:var(--good)}.bad .v{color:var(--bad)}
+.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.row b{text-align:right;overflow-wrap:anywhere}
+.row.bad b{color:var(--bad)}.row.good b{color:var(--good)}
+.note{font-size:.88rem;color:var(--mute);margin:12px 0 0}
+.tw{overflow-x:auto;max-height:420px;margin-top:14px;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:380px}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{background:var(--soft);position:sticky;top:0}
+.neg{color:var(--bad)}
+.item{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;border:1px solid var(--line);border-radius:12px;margin-top:10px;position:relative}
+.item.c1{grid-template-columns:2fr 1fr auto}
+.item label{margin:0 0 3px;font-size:.8rem;font-weight:600;color:var(--mute)}
+.item .x{align-self:end;min-height:46px;background:#fff;border:1px solid var(--line);border-radius:10px;color:var(--bad);font-weight:700;cursor:pointer;padding:0 12px}
+.item .x:hover{background:#fdecea}
+.span{grid-column:1/-1}
+#disp{font-size:1.8rem;text-align:right;font-weight:700;min-height:60px}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.keys button{min-height:56px;font:inherit;font-size:1.2rem;font-weight:700;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.keys button:hover{background:var(--soft)}
+.keys .op{background:var(--soft);color:var(--brand)}.keys .eq{grid-column:1/-1;background:var(--brand);color:#fff;border-color:var(--brand)}
+.keys .eq:hover{background:var(--brand2)}
+.hist{color:var(--mute);text-align:right;min-height:1.4em;margin-top:6px}
+.lim[hidden]{display:none}
+.lim{display:inline-block;margin:0 0 4px;padding:4px 12px;border-radius:99px;background:#fff3d6;color:#5c4200;font-weight:700;font-size:.88rem;border:1px solid #f0d28a}
+.prem{background:#fff8e6;border:1px solid #f0d28a;border-radius:14px;padding:16px}.prem h2{font-size:1.15rem;margin-bottom:.4em}.prem p{margin:0 0 .5em}
+footer{background:var(--ink);color:#b9d0c4;padding:28px 0;font-size:.92rem}
+.sr{position:absolute;left:-9999px}
+@media(max-width:700px){header{position:static}.bar{justify-content:space-between}nav{order:3;flex-basis:100%;justify-content:space-between}nav a{padding:8px 6px;font-size:.92rem}}
+@media(max-width:520px){.item.c1{grid-template-columns:1fr 1fr}.item.c1 .x{grid-column:1/-1}.hero{padding:40px 0 48px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<a class="sr" href="#main">Skip to content</a>
+<header><div class="w bar">
+  <a class="logo" href="#/" aria-label="UnaabzCalc home">Unaabz<b>Calc</b></a>
+  <nav aria-label="Main"><a href="#/">Home</a><a href="#/calculators">Calculators</a><a href="#/pricing">Pricing</a><a href="#/about">About</a></nav>
+  <label class="sr" for="cur">Currency</label>
+  <select id="cur" class="cur" title="Changes how amounts are shown. No exchange-rate conversion is done."><option value="NGN">₦ NGN</option><option value="USD">$ USD</option><option value="GBP">£ GBP</option><option value="EUR">€ EUR</option></select>
+</div></header>
+
+<div id="home">
+  <div class="hero"><div class="w">
+    <p class="kick">Calculate Better. Sell Smarter.</p>
+    <h1>Smart Calculators for Your Business</h1>
+    <p>Price your goods, track profit, add up expenses and plan loan repayments in Naira. Made for vendors and small business owners. Free to use, and nothing you type leaves your phone.</p>
+    <div class="btns"><a class="btn p" href="#/calc/retail-pricing">Start Calculating</a><a class="btn s" href="#/calculators">Explore Calculators</a></div>
+  </div></div>
+  <main id="main">
+    <section id="calculators"><div class="w"><h2>Calculators</h2><div id="cats"></div></div></section>
+    <section id="pricing" style="background:#fff"><div class="w"><h2>Pricing</h2>
+      <div class="plans">
+        <div class="plan"><h3>Free</h3><p>All <span id="fc">13</span> calculators, forever.</p><ul><li>Pricing, profit, discount and loans</li><li>Expenses and multiple products</li><li>No sign-up needed</li></ul></div>
+        <div class="plan pr"><h3>Premium: coming soon</h3><p>Advanced tools for growing businesses.</p><ul><li>Break-even and cash-flow tools</li><li>Saved calculations and reports</li><li>Business dashboard</li></ul></div>
+      </div></div></section>
+    <section id="about"><div class="w"><h2>About UnaabzCalc</h2>
+      <p class="lead">UnaabzCalc helps Nigerian vendors make confident money decisions: what to charge, how much they really earn, and what a loan will cost. Every calculation happens in your browser. We do not collect, send or store the numbers you enter.</p></div></section>
+  </main>
+</div>
+
+<main id="calc" hidden><div class="w">
+  <a class="back" href="#/calculators">Back to all calculators</a>
+  <h1 id="ct"></h1><p id="cd" class="lead"></p>
+  <p id="cl" class="lim" hidden></p>
+  <div id="cb"></div>
+</div></main>
+
+<footer><div class="w">© UnaabzCalc. Calculate Better. Sell Smarter. Calculators give estimates for guidance only and are not financial advice.</div></footer>
+<noscript><div class="w card">UnaabzCalc needs JavaScript to run its calculators. Everything stays on your device.</div></noscript>
+<script>/* UnaabzCalc engine: pure functions, no DOM, no network. Reusable by a future backend/API. */
+(function (root) {
+  'use strict';
+  const E = {};
+  const PPY = { monthly: 12, weekly: 52, biweekly: 26, quarterly: 4, yearly: 1 };
+  const bad = (error) => ({ ok: false, error });
+  const ok = (d) => Object.assign({ ok: true }, d);
+  const cap = (s) => s[0].toUpperCase() + s.slice(1);
+
+  /* ---- Registry: add future calculators here with access:'premium' ---- */
+  E.categories = { everyday: 'Everyday Calculators', business: 'Business Calculators', finance: 'Finance', farming: 'Farming Starters' };
+  E.registry = [
+    { id: 'basic', name: 'Basic Calculator', category: 'everyday', access: 'free', description: 'Add, subtract, multiply, divide and work with percentages and decimals.' },
+    { id: 'percentage', name: 'Percentage Calculator', category: 'everyday', access: 'free', description: 'Find X% of Y, percentage increase, decrease and difference.' },
+    { id: 'profit', name: 'Profit Calculator', category: 'business', access: 'free', description: 'Enter cost and selling price to see profit or loss, margin and markup.' },
+    { id: 'discount', name: 'Discount Calculator', category: 'business', access: 'free', description: 'Work out the discount amount, final price and amount saved.' },
+    { id: 'retail-pricing', name: 'Retail Pricing Calculator', category: 'business', access: 'free', description: 'Get the right selling price from your cost, expenses and target markup or margin.' },
+    { id: 'target-profit', name: 'Target Profit Calculator', category: 'business', access: 'free', description: 'Find the price or number of units you need to reach your profit goal.' },
+    { id: 'business-expenses', name: 'Business Expense Calculator', category: 'business', access: 'free', description: 'Add up rent, transport, staff and other costs with a yearly projection.' },
+    { id: 'multiple-products', name: 'Multiple Products Calculator', category: 'business', access: 'free', description: 'Compare profit across several products and see your overall margin.' },
+    { id: 'loan', name: 'Loan Calculator', category: 'finance', access: 'free', description: 'Estimate monthly payment, total repayment and total interest.' },
+    { id: 'loan-repayment', name: 'Loan Repayment Calculator', category: 'finance', access: 'free', description: 'See a full repayment schedule with principal, interest and balance.' },
+    /* free_limit / premium_limit / free_features / premium_features: the shape future tiers will plug into.
+       premium_limit stays null until Premium exists. premium_features is a PLANNED list only: nothing in it is built. */
+    { id: 'import-landed-cost', name: 'Mini Import / Landed Cost Calculator', icon: '📦', category: 'business', access: 'free',
+      description: 'Find your true landed cost, profit and break-even price for a small import.',
+      free_limit: { metric: 'product value', max: 500000, unit: 'NGN', label: 'Free version: product value up to ₦500,000',
+        exceeded: 'Your shipment value is above the Free version limit of ₦500,000. The Free version is designed for mini importers. Support for larger shipments, multiple products and more detailed import costing will be available in Premium (coming soon).' },
+      premium_limit: null, free_features: ['Single product', 'Landed cost, profit and break-even'],
+      premium_features: ['Shipments above ₦500,000', 'Multiple products and suppliers', 'Shipping allocation by weight, quantity or CBM', 'Currency conversion', 'Scenario comparison', 'Saved shipments and history'] },
+    { id: 'poultry-starter', name: 'Poultry Farming Starter Calculator', icon: '🐔', category: 'farming', access: 'free',
+      description: 'Estimate the cost and possible profit of starting a small poultry batch.',
+      free_limit: { metric: 'birds', max: 50, unit: 'birds', label: 'Free version: up to 50 birds',
+        exceeded: 'Your current input is above the Free version limit of 50 birds. Advanced farm planning for larger operations will be available in Premium (coming soon).' },
+      premium_limit: null, free_features: ['Single batch', 'Cost, profit, break-even and mortality assumption'],
+      premium_features: ['More than 50 birds', 'Broiler and layer planning', 'Multiple batches and cycles', 'Feed and mortality scenarios', 'Egg production projections', 'Saved farm plans'] },
+    { id: 'fish-starter', name: 'Fish Farming Starter Calculator', icon: '🐟', category: 'farming', access: 'free',
+      description: 'Estimate the cost and possible profit of starting a small fish pond.',
+      free_limit: { metric: 'fish', max: 100, unit: 'fish', label: 'Free version: up to 100 fish',
+        exceeded: 'Your current input is above the Free version limit of 100 fish. Advanced farm planning for larger operations will be available in Premium (coming soon).' },
+      premium_limit: null, free_features: ['Single batch', 'Cost, profit, break-even and mortality assumption'],
+      premium_features: ['More than 100 fish', 'Multiple ponds and batches', 'Feed, mortality and growth scenarios', 'Profit forecasting', 'Saved farm plans'] }
+  ];
+  // Phase 2: replace with entitlements verified by a trusted backend. Never trust frontend-only checks for paid features.
+  E.canAccess = (calc) => calc.access === 'free';
+
+  /* ---- Helpers ---- */
+  E.num = (v) => {
+    if (typeof v === 'number') return v;
+    const s = String(v == null ? '' : v).replace(/[,\s₦$£€]/g, '');
+    return s === '' ? NaN : Number(s);
+  };
+  // items: [label, value, {gt, min, max}]
+  function chk(items) {
+    for (const [l, v, o = {}] of items) {
+      if (!Number.isFinite(v)) return `Please enter a valid ${l}.`;
+      if (o.gt !== undefined && !(v > o.gt)) return `${cap(l)} must be greater than ${o.gt}.`;
+      if (v < 0) return `${cap(l)} cannot be negative.`;
+      if (o.max !== undefined && v > o.max) return `${cap(l)} cannot be more than ${o.max}.`;
+      if (v > 1e15) return `${cap(l)} is too large.`;
+    }
+    return null;
+  }
+
+  /* ---- Basic: safe recursive-descent parser, no eval ---- */
+  E.basic = (s) => {
+    const t = String(s).replace(/\s/g, '').replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-');
+    if (!t) return bad('Enter a calculation.');
+    let i = 0, pc = false, tp = false; // pc: last value was a % ; tp: last term was a bare %
+    const err = (m) => { throw new Error(m); };
+    const peek = () => t[i];
+    // Phone-calculator rule: in a + or - a bare % is a percentage OF the running total (50+10% = 55, 200-10% = 180).
+    function expr() { let v = term(); while (peek() === '+' || peek() === '-') { const o = t[i++], r = term(), d = tp ? v * r : r; v = o === '+' ? v + d : v - d; } return v; }
+    function term() {
+      let v = un(), pure = pc;
+      while (peek() === '*' || peek() === '/') {
+        const o = t[i++], r = un();
+        if (o === '/') { if (r === 0) err('Cannot divide by zero.'); v /= r; } else v *= r;
+        pure = false;
+      }
+      tp = pure;
+      return v;
+    }
+    function un() { if (peek() === '-') { i++; return -un(); } if (peek() === '+') { i++; return un(); } let v = prim(), p = false; while (peek() === '%') { i++; v /= 100; p = true; } pc = p; return v; }
+    function prim() {
+      if (peek() === '(') { i++; const v = expr(); if (peek() !== ')') err('Missing closing bracket.'); i++; return v; }
+      const m = /^(\d+\.?\d*|\.\d+)/.exec(t.slice(i));
+      if (!m) err('Incomplete calculation.');
+      i += m[0].length; return parseFloat(m[0]);
+    }
+    try {
+      const v = expr();
+      if (i < t.length) err('Invalid calculation.');
+      if (!Number.isFinite(v) || Math.abs(v) > 1e15) err('Result is too large.');
+      return ok({ value: parseFloat(v.toPrecision(12)) });
+    } catch (e) { return bad(e.message); }
+  };
+
+  /* ---- Percentage: mode 'of' | 'change' | 'difference' ---- */
+  E.percentage = (mode, a, b) => {
+    const e = chk(mode === 'of' ? [['percentage', a], ['number', b]] : [['first value', a], ['second value', b]]);
+    if (e) return bad(e);
+    if (mode === 'of') return ok({ result: a / 100 * b });
+    if (mode === 'change') {
+      if (a === 0) return bad('The starting value must be greater than 0.');
+      const p = (b - a) / a * 100;
+      return ok({ percent: p, direction: p > 0 ? 'increase' : p < 0 ? 'decrease' : 'none', amount: b - a });
+    }
+    if (a + b === 0) return bad('Enter at least one value above 0.');
+    return ok({ percent: Math.abs(a - b) / ((a + b) / 2) * 100, amount: Math.abs(a - b) });
+  };
+
+  E.profit = (cost, sell) => {
+    const e = chk([['cost price', cost], ['selling price', sell]]);
+    if (e) return bad(e);
+    const profit = sell - cost;
+    return ok({ profit, margin: sell > 0 ? profit / sell * 100 : null, markup: cost > 0 ? profit / cost * 100 : null });
+  };
+
+  E.discount = (price, pct) => {
+    const e = chk([['original price', price], ['discount percentage', pct, { max: 100 }]]);
+    if (e) return bad(e);
+    const saved = price * pct / 100;
+    return ok({ discount: saved, final: price - saved, saved });
+  };
+
+  /* ---- Loan: standard amortizing formula P*r / (1-(1+r)^-n); zero-interest handled ---- */
+  E.loan = ({ principal, rate, term, unit, freq }) => {
+    const e = chk([['loan amount', principal, { gt: 0 }], ['interest rate', rate, { max: 200 }], ['loan duration', term, { gt: 0 }]]);
+    if (e) return bad(e);
+    const ppy = PPY[freq || 'monthly'];
+    if (!ppy) return bad('Please choose a payment frequency.');
+    const years = unit === 'months' ? term / 12 : term;
+    if (years > 100) return bad('Loan duration cannot be more than 100 years.');
+    const n = Math.round(years * ppy);
+    if (n < 1) return bad('The loan duration is too short for this payment frequency.');
+    const r = rate / 100 / ppy;
+    const payment = r === 0 ? principal / n : principal * r / (1 - Math.pow(1 + r, -n));
+    let bal = principal; const schedule = [];
+    for (let k = 1; k <= n; k++) {
+      const interest = bal * r, prin = payment - interest;
+      bal = k === n ? 0 : bal - prin;
+      schedule.push({ no: k, principal: prin, interest, balance: Math.max(0, bal) });
+    }
+    const total = payment * n;
+    return ok({ payment, total, interest: total - principal, n, schedule });
+  };
+
+  /* ---- Retail pricing: mode 'markup' | 'margin' ---- */
+  E.retailPrice = ({ cost, expenses, mode, value, discount }) => {
+    const e = chk([['product cost', cost], ['additional expenses', expenses], [mode === 'margin' ? 'profit margin' : 'markup', value, { max: mode === 'margin' ? 99.99 : 100000 }], ['discount', discount, { max: 100 }]]);
+    if (e) return bad(e);
+    const base = cost + expenses;
+    if (base <= 0) return bad('Product cost must be greater than 0.');
+    const price = mode === 'margin' ? base / (1 - value / 100) : base * (1 + value / 100);
+    const profit = price - base, after = price * (1 - discount / 100), profitAfter = after - base;
+    return ok({ base, price, profit, margin: profit / price * 100, markup: profit / base * 100, after, profitAfter, marginAfter: after > 0 ? profitAfter / after * 100 : null });
+  };
+
+  /* ---- Target profit: units given -> required price; else price given -> required units ---- */
+  E.targetProfit = ({ cost, profit, fixed, units, price }) => {
+    const e = chk([['cost per product', cost], ['desired profit', profit], ['fixed expenses', fixed], ['number of units', units], ['selling price', price]]);
+    if (e) return bad(e);
+    if (units > 0) {
+      const totalCost = cost * units + fixed, revenue = totalCost + profit;
+      return ok({ mode: 'price', price: revenue / units, revenue, totalCost, profit, units });
+    }
+    if (price > 0) {
+      if (price <= cost) return bad('Your selling price must be higher than the cost per product.');
+      const u = Math.ceil((fixed + profit) / (price - cost)), revenue = u * price, totalCost = cost * u + fixed;
+      return ok({ mode: 'units', price, revenue, totalCost, profit: revenue - totalCost, units: u });
+    }
+    return bad('Enter the number of units you expect to sell, or your selling price.');
+  };
+
+  /* ---- Expenses: rows [{name, amount}] (amounts per month) ---- */
+  E.expenses = (rows) => {
+    const items = [];
+    for (let i = 0; i < rows.length; i++) {
+      const raw = String(rows[i].amount == null ? '' : rows[i].amount).trim();
+      if (raw === '') continue;
+      const name = String(rows[i].name || '').trim() || `Expense ${i + 1}`, a = E.num(raw);
+      const m = chk([[`amount for ${name}`, a]]);
+      if (m) return bad(m);
+      items.push({ name, amount: a });
+    }
+    if (!items.length) return bad('Enter at least one expense amount.');
+    const monthly = items.reduce((s, x) => s + x.amount, 0);
+    return ok({ monthly, yearly: monthly * 12, items: items.map((x) => Object.assign(x, { share: monthly > 0 ? x.amount / monthly * 100 : 0 })) });
+  };
+
+  /* ---- Multiple products: rows [{name, qty, cost, sell}] ---- */
+  E.multipleProducts = (rows) => {
+    const items = [];
+    for (let i = 0; i < rows.length; i++) {
+      const r = rows[i];
+      if (!['name', 'qty', 'cost', 'sell'].some((k) => String(r[k] || '').trim() !== '')) continue;
+      const name = String(r.name || '').trim() || `Product ${i + 1}`;
+      const qty = E.num(r.qty), cost = E.num(r.cost), sell = E.num(r.sell);
+      const m = chk([[`quantity for ${name}`, qty, { gt: 0 }], [`cost price for ${name}`, cost], [`selling price for ${name}`, sell]]);
+      if (m) return bad(m);
+      items.push({ name, qty, cost: qty * cost, sales: qty * sell, profit: qty * (sell - cost) });
+    }
+    if (!items.length) return bad('Add at least one product.');
+    const sum = (k) => items.reduce((s, x) => s + x[k], 0);
+    const sales = sum('sales'), profit = sum('profit');
+    return ok({ items, totalCost: sum('cost'), totalSales: sales, totalProfit: profit, units: sum('qty'), margin: sales > 0 ? profit / sales * 100 : null });
+  };
+
+  /* ---- Free-tier limits (read from the registry so Premium can raise them later) ---- */
+  function limitHit(id, value) {
+    const l = E.registry.find((c) => c.id === id).free_limit;
+    return value > l.max ? { ok: false, premium: true, message: l.exceeded, limit: l.label } : null;
+  }
+
+  /* ---- Mini import / landed cost. All figures come from the user. ---- */
+  E.importCost = (v) => {
+    const e = chk([['product cost per unit', v.cost, { gt: 0 }], ['quantity', v.qty, { gt: 0 }], ['shipping fee', v.shipping], ['customs/duties', v.duties], ['clearing/agent fee', v.clearing], ['local transportation', v.transport], ['bank/payment charges', v.bank], ['other expenses', v.other], ['expected selling price per unit', v.price]]);
+    if (e) return bad(e);
+    const product = v.cost * v.qty;
+    const hit = limitHit('import-landed-cost', product);
+    if (hit) return hit;
+    const extras = v.shipping + v.duties + v.clearing + v.transport + v.bank + v.other, landed = product + extras, perUnit = landed / v.qty;
+    const hasPrice = v.price > 0, revenue = v.price * v.qty, profit = revenue - landed;
+    return ok({ product, extras, landed, perUnit, hasPrice, revenue, profit, profitPer: profit / v.qty, margin: hasPrice ? profit / revenue * 100 : null, breakEven: perUnit });
+  };
+
+  /* ---- Poultry / fish starters share one model. Feed is the TOTAL for the batch, entered by the user. ---- */
+  const FARMS = {
+    poultry: { id: 'poultry-starter', noun: 'bird', plural: 'birds', young: 'chick', med: 'medication/vaccination cost', ops: [['bedding', 'bedding/litter cost'], ['utilities', 'water/electricity cost'], ['labour', 'labour cost'], ['transport', 'transportation cost'], ['other', 'other expenses']] },
+    fish: { id: 'fish-starter', noun: 'fish', plural: 'fish', young: 'fingerling', med: 'medication/treatment cost', ops: [['pond', 'pond preparation cost'], ['water', 'water cost'], ['power', 'electricity/pumping cost'], ['labour', 'labour cost'], ['transport', 'transportation cost'], ['other', 'other expenses']] }
+  };
+  function farm(c, v) {
+    const e = chk([[`number of ${c.plural}`, v.count, { gt: 0 }], [`price per ${c.young}`, v.unitPrice], ['feed cost', v.feed], [c.med, v.med]].concat(c.ops.map(([id, l]) => [l, v[id]]), [[`selling price per ${c.noun}`, v.price, { gt: 0 }], ['mortality rate', v.mortality, { max: 99 }]]));
+    if (e) return bad(e);
+    if (!Number.isInteger(v.count)) return bad(`Number of ${c.plural} must be a whole number.`);
+    const hit = limitHit(c.id, v.count);
+    if (hit) return hit;
+    const survivors = Math.floor(v.count * (100 - v.mortality) / 100 + 1e-9);
+    if (survivors < 1) return bad(`That mortality rate leaves no surviving ${c.plural}. Please lower it.`);
+    const purchase = v.count * v.unitPrice, other = c.ops.reduce((s, [id]) => s + v[id], 0), total = purchase + v.feed + v.med + other;
+    const revenue = survivors * v.price, profit = revenue - total;
+    return ok({ count: v.count, purchase, feed: v.feed, med: v.med, other, total, survivors, mortality: v.mortality, costPer: total / survivors, revenue, profit, profitPer: profit / survivors, breakEven: total / survivors, margin: profit / revenue * 100 });
+  }
+  E.poultry = (v) => farm(FARMS.poultry, v);
+  E.fish = (v) => farm(FARMS.fish, v);
+
+  // Named aliases used by the spec
+  E.calculatePercentage = E.percentage; E.calculateProfit = E.profit; E.calculateDiscount = E.discount; E.calculateLoan = E.loan;
+  E.calculateRetailPrice = E.retailPrice; E.calculateTargetProfit = E.targetProfit; E.calculateExpenses = E.expenses; E.calculateMultipleProducts = E.multipleProducts; E.calculateImportCost = E.importCost; E.calculatePoultry = E.poultry; E.calculateFish = E.fish;
+
+  if (typeof module !== 'undefined' && module.exports) module.exports = E; else root.CalcEngine = E;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>(() => {
+'use strict';
+const E = window.CalcEngine;
+let cur = 'NGN', redo = null;
+const money = (n) => new Intl.NumberFormat('en-NG', { style: 'currency', currency: cur }).format(n);
+const pct = (n) => (n == null || !Number.isFinite(n) ? 'N/A' : n.toFixed(2) + '%');
+const int = (n) => new Intl.NumberFormat('en-NG').format(n);
+const $ = (id) => document.getElementById(id);
+// Safe DOM builder: strings are always appended as text, never parsed as HTML.
+const h = (t, a = {}, ...k) => {
+  const e = document.createElement(t);
+  for (const [x, y] of Object.entries(a)) x === 'class' ? (e.className = y) : x.startsWith('on') ? e.addEventListener(x.slice(2), y) : e.setAttribute(x, y);
+  for (const c of k.flat()) if (c != null) e.append(c);
+  return e;
+};
+const sgn = (n) => (n < 0 ? 'neg' : '');
+const FREQ = [['monthly', 'Monthly'], ['weekly', 'Weekly'], ['biweekly', 'Every 2 weeks'], ['quarterly', 'Quarterly'], ['yearly', 'Yearly']];
+const UNIT = [['years', 'Years'], ['months', 'Months']];
+const LOAN_NOTE = 'This is an estimate. Actual lender calculations may differ because of fees, taxes, insurance, compounding methods and other charges.';
+
+const loanView = (label, table) => (r) => ({
+  rows: [[label, money(r.payment)], ['Total repayment', money(r.total)], ['Total interest', money(r.interest)], ['Number of payments', int(r.n)]],
+  table: table && { head: ['#', 'Principal', 'Interest', 'Balance'], body: r.schedule.map((s) => [String(s.no), money(s.principal), money(s.interest), money(s.balance)]) },
+  note: LOAN_NOTE
+});
+
+const num = (id, label, ph, opt) => ({ id, label: label + (opt ? ' (optional)' : ''), ph, opt });
+const sel = (id, label, opts) => ({ id, label, type: 'select', opts });
+
+const CALCS = {
+  percentage: {
+    fields: [sel('mode', 'What do you want to find?', [['of', 'X% of Y'], ['change', 'Percentage increase or decrease'], ['difference', 'Percentage difference']]), num('a', 'First value (for X% of Y: the percentage X)', 'e.g. 20'), num('b', 'Second value (for X% of Y: the number Y)', 'e.g. 150')],
+    run: (v) => E.percentage(v.mode, v.a, v.b),
+    view: (r, v) => v.mode === 'of' ? { rows: [[`${v.a}% of ${v.b}`, int2(r.result)]] }
+      : v.mode === 'change' ? { rows: [[r.direction === 'increase' ? 'Percentage increase' : r.direction === 'decrease' ? 'Percentage decrease' : 'No change', pct(Math.abs(r.percent)), r.direction === 'increase' ? 'good' : r.direction === 'decrease' ? 'bad' : ''], ['Change in value', int2(r.amount)]], note: 'Change is measured from the first value to the second.' }
+      : { rows: [['Percentage difference', pct(r.percent)], ['Difference in value', int2(r.amount)]], note: 'Difference is relative to the average of the two values.' }
+  },
+  profit: {
+    fields: [num('cost', 'Cost price', 'e.g. 800'), num('sell', 'Selling price', 'e.g. 1000')],
+    run: (v) => E.profit(v.cost, v.sell),
+    view: (r) => ({ rows: [[r.profit > 0 ? 'Profit' : r.profit < 0 ? 'Loss' : 'Break-even (no profit, no loss)', money(Math.abs(r.profit)), r.profit > 0 ? 'good' : r.profit < 0 ? 'bad' : ''], ['Profit margin', pct(r.margin), 'Share of the selling price that is profit'], ['Markup', pct(r.markup), 'Profit as a percentage of cost']] })
+  },
+  discount: {
+    fields: [num('price', 'Original price', 'e.g. 10000'), num('pct', 'Discount (%)', 'e.g. 15')],
+    run: (v) => E.discount(v.price, v.pct),
+    view: (r) => ({ rows: [['Final price', money(r.final)], ['Discount amount', money(r.discount)], ['Amount saved', money(r.saved)]] })
+  },
+  'retail-pricing': {
+    fields: [num('cost', 'Product cost', 'What you paid for one item'), num('expenses', 'Additional expenses per item', 'Transport, packaging, etc.', true), sel('mode', 'I want to set my price by', [['markup', 'Markup (% added on top of cost)'], ['margin', 'Profit margin (% of selling price)']]), num('value', 'Desired markup or margin (%)', 'e.g. 30'), num('discount', 'Discount to offer (%)', 'e.g. 10', true)],
+    run: (v) => E.retailPrice({ cost: v.cost, expenses: v.expenses, mode: v.mode, value: v.value, discount: v.discount }),
+    view: (r, v) => ({ rows: [['Recommended selling price', money(r.price)], ['Total cost per item', money(r.base)], ['Expected profit per item', money(r.profit), r.profit >= 0 ? 'good' : 'bad'], ['Profit margin', pct(r.margin)], ['Markup', pct(r.markup)]].concat(v.discount > 0 ? [[`Price after ${v.discount}% discount`, money(r.after)], ['Profit after discount', money(r.profitAfter), r.profitAfter >= 0 ? 'good' : 'bad']] : []), note: r.profitAfter < 0 ? 'Warning: after this discount you would sell below cost.' : '' })
+  },
+  'target-profit': {
+    fields: [num('cost', 'Cost per product', 'What one item costs you'), num('profit', 'Profit you want to make', 'e.g. 100000'), num('fixed', 'Fixed expenses (rent, transport, etc.)', 'e.g. 20000', true), num('units', 'Units you expect to sell', 'e.g. 200', true), num('price', 'Your selling price, if you already have one', 'Use this if you left units empty', true)],
+    run: (v) => E.targetProfit({ cost: v.cost, profit: v.profit, fixed: v.fixed, units: v.units, price: v.price }),
+    view: (r) => ({ rows: [r.mode === 'price' ? ['Price you must charge per item', money(r.price)] : ['Items you must sell', int(r.units)], ['Revenue needed', money(r.revenue)], ['Total costs', money(r.totalCost)], ['Expected profit', money(r.profit), 'good']].concat(r.mode === 'units' ? [['At selling price', money(r.price)]] : [['Items to sell', int(r.units)]]) })
+  },
+  'business-expenses': {
+    fields: [{ id: 'items', type: 'rows', add: 'Add expense', cols: [{ id: 'name', label: 'Expense', ph: 'Name' }, { id: 'amount', label: 'Monthly amount', ph: '0', num: 1 }], init: ['Rent', 'Transport', 'Electricity', 'Staff', 'Packaging', 'Marketing', 'Internet', 'Delivery', 'Other'].map((n) => ({ name: n })) }],
+    run: (v) => E.expenses(v.items),
+    view: (r) => ({ rows: [['Total monthly expenses', money(r.monthly)], ['Yearly projection (× 12)', money(r.yearly)]], table: { head: ['Expense', 'Monthly', 'Share'], body: r.items.map((x) => [x.name, money(x.amount), pct(x.share)]) } })
+  },
+  'multiple-products': {
+    fields: [{ id: 'items', type: 'rows', add: 'Add product', cols: [{ id: 'name', label: 'Product', ph: 'Name', span: 1 }, { id: 'qty', label: 'Quantity', ph: '0', num: 1 }, { id: 'cost', label: 'Cost price (each)', ph: '0', num: 1 }, { id: 'sell', label: 'Selling price (each)', ph: '0', num: 1 }], init: [{}, {}, {}] }],
+    run: (v) => E.multipleProducts(v.items),
+    view: (r) => ({ rows: [[r.totalProfit >= 0 ? 'Total profit' : 'Total loss', money(Math.abs(r.totalProfit)), r.totalProfit >= 0 ? 'good' : 'bad'], ['Total cost', money(r.totalCost)], ['Total sales', money(r.totalSales)], ['Overall profit margin', pct(r.margin)], ['Total units', int(r.units)]], table: { head: ['Product', 'Qty', 'Cost', 'Sales', 'Profit/Loss'], body: r.items.map((x) => [x.name, int(x.qty), money(x.cost), money(x.sales), [money(x.profit), sgn(x.profit)]]) } })
+  },
+  'import-landed-cost': {
+    ngnOnly: true,
+    fields: [num('cost', 'Product cost per unit', 'e.g. 3000'), num('qty', 'Quantity', 'e.g. 100'), num('shipping', 'Shipping fee', 'Total for the shipment', true), num('duties', 'Customs/duties', 'Total you paid or expect to pay', true), num('clearing', 'Clearing/agent fee', 'e.g. 15000', true), num('transport', 'Local transportation', 'Port to your shop or store', true), num('bank', 'Bank/payment charges', 'e.g. 5000', true), num('other', 'Other expenses', 'e.g. 7000', true), num('price', 'Expected selling price per unit', 'Leave empty to see costs only', true)],
+    run: (v) => E.importCost(v),
+    view: (r) => ({ rows: [['Total landed cost', money(r.landed)], ['Landed cost per unit', money(r.perUnit)], ['Total product cost', money(r.product)], ['Total additional costs', money(r.extras)]].concat(r.hasPrice ? [['Expected revenue', money(r.revenue)], [r.profit >= 0 ? 'Expected profit' : 'Expected loss', money(r.profit), r.profit >= 0 ? 'good' : 'bad'], ['Profit per unit', money(r.profitPer), r.profitPer >= 0 ? 'good' : 'bad'], ['Profit margin', pct(r.margin)]] : []).concat([['Break-even selling price per unit', money(r.breakEven)]]), note: 'Estimated based on the figures you entered. This calculator does not know current customs, shipping or market prices.' + (r.hasPrice ? '' : ' Add an expected selling price to see profit.') })
+  },
+  'poultry-starter': {
+    fields: [num('count', 'Number of chicks/birds', 'e.g. 30'), num('unitPrice', 'Price per chick', 'e.g. 1200'), num('feed', 'Total feed cost for the batch', 'e.g. 90000'), num('med', 'Medication/vaccination', 'e.g. 6000', true), num('bedding', 'Bedding/litter', 'e.g. 3000', true), num('utilities', 'Water/electricity', 'e.g. 4000', true), num('labour', 'Labour', 'e.g. 10000', true), num('transport', 'Transportation', 'e.g. 2000', true), num('other', 'Other expenses', 'e.g. 1000', true), num('price', 'Expected selling price per bird', 'e.g. 7500'), num('mortality', 'Expected mortality rate (%)', 'e.g. 5. Empty means 0%', true)],
+    run: (v) => E.poultry(v),
+    view: farmView({ plural: 'birds', noun: 'bird', purchase: 'Chick purchase cost', med: 'Medication/vaccination cost' })
+  },
+  'fish-starter': {
+    fields: [num('count', 'Number of fingerlings', 'e.g. 80'), num('unitPrice', 'Price per fingerling', 'e.g. 50'), num('feed', 'Total feed cost for the batch', 'e.g. 60000'), num('med', 'Medication/treatment', 'e.g. 3000', true), num('pond', 'Pond preparation', 'e.g. 20000', true), num('water', 'Water', 'e.g. 2000', true), num('power', 'Electricity/pumping', 'e.g. 5000', true), num('labour', 'Labour', 'e.g. 10000', true), num('transport', 'Transportation', 'e.g. 2000', true), num('other', 'Other expenses', 'e.g. 1000', true), num('price', 'Expected selling price per fish', 'e.g. 1500'), num('mortality', 'Expected mortality rate (%)', 'e.g. 10. Empty means 0%', true)],
+    run: (v) => E.fish(v),
+    view: farmView({ plural: 'fish', noun: 'fish', purchase: 'Fingerling purchase cost', med: 'Treatment/medication cost' })
+  },
+  loan: {
+    fields: [num('principal', 'Loan amount', 'e.g. 1000000'), num('rate', 'Annual interest rate (%)', 'e.g. 12'), num('term', 'Loan duration', 'e.g. 12'), sel('unit', 'Duration in', [['months', 'Months'], ['years', 'Years']])],
+    run: (v) => E.loan({ principal: v.principal, rate: v.rate, term: v.term, unit: v.unit, freq: 'monthly' }),
+    view: loanView('Monthly payment', false)
+  },
+  'loan-repayment': {
+    fields: [num('principal', 'Principal (loan amount)', 'e.g. 1000000'), num('rate', 'Annual interest rate (%)', 'e.g. 12'), num('term', 'Loan term', 'e.g. 1'), sel('unit', 'Term in', UNIT), sel('freq', 'Payment frequency', FREQ)],
+    run: (v) => E.loan({ principal: v.principal, rate: v.rate, term: v.term, unit: v.unit, freq: v.freq }),
+    view: loanView('Payment amount', true)
+  }
+};
+function farmView(t) {
+  return (r) => ({
+    rows: [[r.profit >= 0 ? 'Expected profit' : 'Expected loss', money(Math.abs(r.profit)), r.profit >= 0 ? 'good' : 'bad'], [t.purchase, money(r.purchase)], ['Estimated feed cost', money(r.feed)], [t.med, money(r.med)], ['Other operating costs', money(r.other)], ['Total estimated production cost', money(r.total)], [`Surviving ${t.plural} (rounded down)`, int(r.survivors)], [`Estimated cost per surviving ${t.noun}`, money(r.costPer)], ['Expected revenue', money(r.revenue)], [`Estimated profit per ${t.noun}`, money(r.profitPer), r.profitPer >= 0 ? 'good' : 'bad'], [`Break-even selling price per ${t.noun}`, money(r.breakEven)]],
+    note: `Estimated result based on your inputs and assumptions. Assumptions: ${int(r.count)} ${t.plural} bought, ${r.mortality}% mortality, so ${int(r.survivors)} are expected to survive. Revenue counts only surviving ${t.plural}. Feed is the total you entered for the whole batch.`
+  });
+}
+function int2(n) { return new Intl.NumberFormat('en-NG', { maximumFractionDigits: 2 }).format(n); }
+
+/* ---------- Form + results ---------- */
+function rowEl(f, data) {
+  const e = h('div', { class: 'item' + (f.cols.length === 2 ? ' c1' : '') });
+  f.cols.forEach((c) => {
+    const id = 'r' + Math.random().toString(36).slice(2, 8);
+    const inp = h('input', { id, 'data-k': c.id, type: 'text', placeholder: c.ph, autocomplete: 'off' });
+    if (c.num) inp.setAttribute('inputmode', 'decimal');
+    if (data && data[c.id]) inp.value = data[c.id];
+    e.append(h('div', c.span ? { class: 'span' } : {}, h('label', { for: id }, c.label), inp));
+  });
+  e.append(h('button', { type: 'button', class: 'x', 'aria-label': 'Remove row', onclick: () => { if (e.parentNode.children.length > 1) e.remove(); } }, 'Remove'));
+  return e;
+}
+
+function renderCalc(id) {
+  const meta = E.registry.find((c) => c.id === id), def = CALCS[id];
+  document.title = `${meta.name} – UnaabzCalc`;
+  const md = document.querySelector('meta[name=description]'); md.setAttribute('content', `${meta.description} Free ${meta.name.toLowerCase()} from UnaabzCalc.`);
+  $('ct').textContent = (meta.icon ? meta.icon + ' ' : '') + meta.name; $('cd').textContent = meta.description;
+  $('cl').hidden = !meta.free_limit; $('cl').textContent = meta.free_limit ? meta.free_limit.label : '';
+  const body = $('cb'); body.replaceChildren(); redo = null;
+  if (id === 'basic') return basic(body);
+  if (!E.canAccess(meta)) { body.append(h('div', { class: 'card' }, 'This calculator is part of Premium, coming soon.')); return; }
+
+  const form = h('form', { class: 'card', novalidate: '' }), res = h('div', { class: 'card res', 'aria-live': 'polite', 'aria-atomic': 'true', role: 'status', hidden: '' });
+  const err = h('p', { class: 'err', role: 'alert' });
+  const holders = {};
+  for (const f of def.fields) {
+    if (f.type === 'rows') {
+      const list = h('div'); holders[f.id] = list; f.init.forEach((d) => list.append(rowEl(f, d)));
+      form.append(h('div', { class: 'lab' }, 'Enter your ' + (f.add.includes('product') ? 'products' : 'expenses')), list, h('button', { type: 'button', class: 'btn o', style: 'margin-top:10px;width:100%', onclick: () => list.append(rowEl(f)) }, f.add));
+    } else if (f.type === 'select') {
+      holders[f.id] = h('select', { id: 'f_' + f.id }, f.opts.map(([v, l]) => h('option', { value: v }, l)));
+      form.append(h('label', { for: 'f_' + f.id }, f.label), holders[f.id]);
+    } else {
+      holders[f.id] = h('input', { id: 'f_' + f.id, type: 'text', inputmode: 'decimal', placeholder: f.ph, autocomplete: 'off' });
+      form.append(h('label', { for: 'f_' + f.id }, f.label), holders[f.id]);
+    }
+  }
+  const reset = h('button', { type: 'button', class: 'btn o' }, 'Reset');
+  form.append(err, h('div', { class: 'acts' }, h('button', { type: 'submit', class: 'btn g' }, 'Calculate'), reset));
+
+  const read = () => {
+    const v = {};
+    for (const f of def.fields) {
+      if (f.type === 'rows') v[f.id] = [...holders[f.id].children].map((row) => Object.fromEntries([...row.querySelectorAll('input')].map((i) => [i.dataset.k, i.value])));
+      else if (f.type === 'select') v[f.id] = holders[f.id].value;
+      else { const raw = holders[f.id].value.trim(); v[f.id] = f.opt && raw === '' ? 0 : E.num(raw); }
+    }
+    return v;
+  };
+  const run = () => {
+    const v = read(), r = def.ngnOnly && cur !== 'NGN' ? { ok: false, error: 'The Free version of this calculator works in Naira (NGN). Please switch the currency to NGN.' } : def.run(v);
+    form.querySelectorAll('[aria-invalid]').forEach((x) => x.removeAttribute('aria-invalid'));
+    if (r.premium) { err.textContent = ''; showPremium(res, r); return; }
+    if (!r.ok) { err.textContent = r.error; res.hidden = true; const bad = def.fields.find((f) => f.type !== 'rows' && f.type !== 'select' && !Number.isFinite(v[f.id])); if (bad) { holders[bad.id].setAttribute('aria-invalid', 'true'); holders[bad.id].focus(); } return; }
+    err.textContent = '';
+    showResult(res, def.view(r, v));
+  };
+  form.addEventListener('submit', (e) => { e.preventDefault(); run(); redo = run; });
+  reset.addEventListener('click', () => renderCalc(id));
+  body.append(form, res);
+  const first = form.querySelector('input'); if (first && matchMedia('(min-width:700px)').matches) first.focus();
+}
+
+function showPremium(box, r) {
+  box.replaceChildren(); box.hidden = false;
+  box.append(h('div', { class: 'prem' }, h('h2', {}, 'Above the Free version limit'), h('p', {}, r.message), h('p', { class: 'note' }, r.limit + '. Everything under this limit is fully calculated for free.')));
+}
+function showResult(box, v) {
+  box.replaceChildren(); box.hidden = false;
+  v.rows.forEach(([k, val, cls], i) => {
+    if (i === 0) box.append(h('div', { class: 'hero-r ' + (cls || '') }, h('div', { class: 'k' }, k), h('div', { class: 'v' }, val)));
+    else box.append(h('div', { class: 'row ' + (cls === 'good' || cls === 'bad' ? cls : '') }, h('span', {}, k), h('b', {}, val)));
+  });
+  if (v.table) box.append(h('div', { class: 'tw', tabindex: '0', role: 'region', 'aria-label': 'Results table' }, h('table', {}, h('thead', {}, h('tr', {}, v.table.head.map((x) => h('th', { scope: 'col' }, x)))), h('tbody', {}, v.table.body.map((r) => h('tr', {}, r.map((c) => Array.isArray(c) ? h('td', { class: c[1] }, c[0]) : h('td', {}, c))))))));
+  if (v.note) box.append(h('p', { class: 'note' }, v.note));
+}
+
+/* ---------- Basic calculator ---------- */
+function basic(body) {
+  const disp = h('input', { id: 'disp', type: 'text', readonly: '', 'aria-label': 'Calculation', value: '' });
+  const hist = h('div', { class: 'hist', role: 'status', 'aria-live': 'polite' });
+  const err = h('p', { class: 'err', role: 'alert' });
+  let done = false;
+  const add = (c) => { if (done && /[\d.(]/.test(c)) disp.value = ''; done = false; err.textContent = ''; disp.value += c; };
+  const eq = () => { const r = E.basic(disp.value); if (!r.ok) { err.textContent = r.error; return; } hist.textContent = disp.value + ' ='; disp.value = String(r.value); done = true; };
+  const act = (k) => {
+    if (k === 'C') { disp.value = ''; hist.textContent = ''; err.textContent = ''; done = false; }
+    else if (k === '⌫') { disp.value = disp.value.slice(0, -1); err.textContent = ''; }
+    else if (k === '=') eq(); else add(k);
+  };
+  const layout = ['C', '⌫', '%', '÷', '7', '8', '9', '×', '4', '5', '6', '−', '1', '2', '3', '+', '0', '.', '(', ')', '='];
+  const keys = h('div', { class: 'keys' }, layout.map((k) => h('button', { type: 'button', class: k === '=' ? 'eq' : '+−×÷%C⌫'.includes(k) ? 'op' : '', 'aria-label': { '⌫': 'Delete', C: 'Clear', '÷': 'Divide', '×': 'Multiply', '−': 'Subtract', '+': 'Add', '%': 'Percent', '=': 'Equals', '.': 'Decimal point', '(': 'Open bracket', ')': 'Close bracket' }[k] || k, onclick: () => act(k) }, k)));
+  body.append(h('div', { class: 'card' }, hist, disp, err, keys, h('p', { class: 'note' }, 'Percent works like a phone calculator: 50 + 10% = 55 and 200 − 10% = 180. With × or ÷, 10% means 0.1, so 200 × 10% = 20. You can also use your keyboard.')));
+  window.__kb = (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const m = { '*': '×', '/': '÷', '-': '−' }, k = e.key;
+    if (/^[\d.+()%]$/.test(k) || m[k]) add(m[k] || k);
+    else if (k === 'Enter' || k === '=') eq(); else if (k === 'Backspace') act('⌫'); else if (k === 'Escape' || k.toLowerCase() === 'c') act('C'); else return;
+    e.preventDefault();
+  };
+}
+document.addEventListener('keydown', (e) => { if (location.hash === '#/calc/basic' && window.__kb && !/^(BUTTON|SELECT)$/.test(e.target.tagName)) window.__kb(e); });
+
+/* ---------- Home + router ---------- */
+function renderHome() {
+  $('fc').textContent = E.registry.filter((c) => c.access === 'free').length;
+  const cats = $('cats'); cats.replaceChildren();
+  for (const [key, label] of Object.entries(E.categories)) {
+    cats.append(h('h3', { style: 'margin-top:24px' }, label), h('div', { class: 'grid' }, E.registry.filter((c) => c.category === key).map((c) => h('a', { class: 'tile', href: '#/calc/' + c.id }, h('h3', {}, (c.icon ? c.icon + ' ' : '') + c.name), h('p', {}, c.description), h('span', { class: 'tag' }, c.access === 'free' ? 'Free' : 'Premium'), c.free_limit ? h('p', { class: 'note' }, c.free_limit.label) : null))));
+  }
+}
+function route() {
+  const hash = location.hash.replace(/^#\/?/, ''), m = /^calc\/([\w-]+)$/.exec(hash);
+  const calc = m && E.registry.find((c) => c.id === m[1]);
+  $('home').hidden = !!calc; $('calc').hidden = !calc;
+  if (calc) { renderCalc(calc.id); scrollTo(0, 0); return; }
+  document.title = 'UnaabzCalc – Free Business Calculators for Nigerian Vendors';
+  const t = ['calculators', 'pricing', 'about'].includes(hash) ? $(hash) : null;
+  t ? t.scrollIntoView() : scrollTo(0, 0);
+}
+$('cur').addEventListener('change', (e) => { cur = e.target.value; if (redo) redo(); });
+renderHome(); addEventListener('hashchange', route); route();
+})();
+</script>
+</body>
+</html>
