@@ -37,3 +37,4 @@
 36. Refunds are manual. There are no receipts or reminder e-mails of our own.
 37. AdSense and its Content-Security-Policy additions are untested with real ads. Privacy and terms pages (needed by AdSense) do not exist yet.
 38. Pages and server actions for billing could only be syntax-checked here (no `next build`); the logic underneath is tested.
+39. GitHub `main` still holds an older Free `index.html` than the live app. The live Free app is on AppDeploy (docs/FREE_APP_VERIFICATION.md). Decide later where the Free app is hosted for good.
