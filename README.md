@@ -7,7 +7,7 @@ This repository holds **two apps**:
 | Folder | What it is | Status |
 |---|---|---|
 | `free/` | The live Free app: static HTML/CSS/JS, 14 calculators, no sign-in. **Frozen.** | Unchanged. Do not edit. |
-| `premium/` | UnaabzCalc Premium V1: Next.js + TypeScript + Supabase. | **Phase 7 of 9 built (payments, ads, promotion); see PREMIUM_V1_FEATURES.md for what is tested.** |
+| `premium/` | UnaabzCalc Premium V1: Next.js + TypeScript + Supabase. | **Phase 8 of 9 built (admin screens); see PREMIUM_V1_FEATURES.md for what is tested.** |
 
 The calculation engine lives in **one place**: `free/calc-engine.js`. Premium uses a generated, byte-identical copy
 (`premium/src/vendor/calc-engine.js`), kept in sync by `npm run sync-engine` and checked by a test.

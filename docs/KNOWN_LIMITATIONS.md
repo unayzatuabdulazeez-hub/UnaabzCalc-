@@ -6,7 +6,7 @@
 5. CSP allows `'unsafe-inline'` scripts/styles (needed by Next.js bootstrap). Nonce-based CSP is a later hardening step.
 6. Business deletion is not allowed (archive only). Whether owners can permanently delete a business is an open decision.
 7. No admin screens yet (database functions exist and are tested).
-8. Premium pages are not yet linked to the Free site under `/free`; routing is an open decision (see DEPLOYMENT.md).
+8. Premium pages are not yet linked to the Free site under `/free`; routing is an open decision (see docs/SCHEMA.md).
 9. The Free engine enforces Free-tier caps internally (import value ₦500,000, poultry 100). Premium's advanced calculators will be new engine modules; the Free engine is not modified.
 10. Plan gating is a product decision to confirm: a signed-in user on the Free plan can create a business but cannot add customers, products or jobs (writes need Premium; reads always work).
 11. Customers, products and jobs cannot be permanently deleted by users (archive only).
@@ -38,3 +38,7 @@
 37. AdSense and its Content-Security-Policy additions are untested with real ads. Privacy and terms pages (needed by AdSense) do not exist yet.
 38. Pages and server actions for billing could only be syntax-checked here (no `next build`); the logic underneath is tested.
 39. GitHub `main` still holds an older Free `index.html` than the live app. The live Free app is on AppDeploy (docs/FREE_APP_VERIFICATION.md). Decide later where the Free app is hosted for good.
+40. Admin screens were built and tested at the database and logic level (93 database checks, 10 unit tests); the pages themselves could only be syntax-checked here (no `next build`, no browser). Look at them in a real run before relying on them.
+41. There is no screen yet for adding or removing admins: the first admin is added directly in Supabase (see docs/SCHEMA.md). A founding member's status can only be changed in Supabase.
+42. Admins cannot edit a person's name, e-mail or password, delete accounts, or send e-mail from the app.
+43. There is no export of the user or payment lists, and no chart; revenue is shown as a table by month.

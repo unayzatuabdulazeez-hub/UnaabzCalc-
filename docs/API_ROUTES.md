@@ -41,3 +41,13 @@ No JSON API routes exist yet. Paystack routes arrive in Phase 6.
 | `/app/billing` | GET | signed-in | Plan, paid-until, payment history (own rows only), *Manage or cancel* (`openManageLink` Server Action) |
 | `/billing/callback?reference=` | GET | signed-in owner of that payment | Verifies with Paystack, then redirects to /app/billing with a message code |
 | `/api/paystack/webhook` | POST | Paystack only | Valid `x-paystack-signature` required (else 401); body max 100,000 bytes; 200 acknowledges, 500 asks Paystack to retry; 404 when payments are off |
+
+## Phase 8: admin screens (all need a signed-in admin; anyone else gets a plain 404)
+| Route | Method | Notes |
+|---|---|---|
+| `/app/admin` | GET | Overview: people, naira payments confirmed by Paystack, Paystack message problems, accounts by plan |
+| `/app/admin/users` | GET | `?q=` (e-mail or name, max 100 characters) `&filter=` (fixed list) `&page=`; 25 per page |
+| `/app/admin/users/[id]` | GET | One account: plan, payments, what admins did. Opening it is written to the audit log |
+| `/app/admin/payments` | GET | `?q=` (reference or e-mail) `&filter=all|success|mismatch|pending` `&page=` |
+| `/app/admin/webhooks` | GET | `?filter=problems|error|unfinished|all` `&page=`. No request bodies are shown |
+| `grantComplimentary`, `revokeComplimentary`, `endPaidAccess` | POST (Server Actions) | Admin only; a written reason (3 to 500 characters) is required; days 1 to 365 for a grant; audit-logged in the database |

@@ -40,6 +40,6 @@ Statuses: **Not started**, **In progress**, **Implemented**, **Tested**, **Block
 | 6 | Dashboard, records search, records export, business analysis (formulas in `docs/ANALYSIS_FORMULAS.md`) | **Tested** (analysis maths, workbooks; 7 deliberate breakages caught); screens syntax-checked only | Built only on entered data: no revenue, cash or profit figures (no payments record) |
 | 7 | Paystack subscriptions: verify server-side, signed idempotent webhooks, configurable price, test mode | **Logic tested** (78 DB checks, 15 deliberate breakages caught; 36 unit tests); pages syntax-checked only; no real Paystack run yet | See `docs/PAYMENTS.md`. Off until keys are set |
 | 7 | AdSense (off when no real publisher id; never for Premium) and Premium promotion | Rule tested; ad slot and CSP additions untested with real ads | Pricing page, upgrade page, billing page and plan banner link are in place |
-| 8 | Admin screens: users, subscriptions, statistics, search/filter, webhook status | Not started |
+| 8 | Admin screens: users, subscriptions, statistics, search/filter, webhook status, grant or end access with a reason | **Database and logic tested** (93 database checks, 25 deliberate breakages caught; 10 unit tests); pages syntax-checked only | Admins see accounts, plans and payments only, never business records |
 | 9 | Security review, full responsive test (360/412/768/1024/1280/1920), deployment readiness, handover | Not started |
 | All | V2 compatibility (modular, centralised entitlements, shared exports) without building V2 | In progress (structure only) |

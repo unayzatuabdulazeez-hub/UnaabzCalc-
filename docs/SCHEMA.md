@@ -62,3 +62,10 @@ No migration was needed: the column accepts any lowercase-hyphen id, and the app
 - `payments`: one row per checkout or renewal (`reference` unique, `paystack_tx_id` unique, `expected_amount_kobo`, `amount_kobo`, `currency`, `status` pending | success | mismatch, `note`). `user_id` is a plain uuid so payment history survives account deletion. Users can read their own rows; nobody can write them except through the service-role functions.
 - `webhook_events`: SHA-256 of each webhook body, event name, outcome. No policies: service role only.
 - Functions (service role only, security definer): `create_checkout_payment`, `apply_paystack_charge`, `apply_paystack_subscription_event`, `claim_webhook_event`, `finish_webhook_event`. Period end = base + one calendar month (UTC), base = the current end date if still paid up, else the payment date.
+
+## Admin (Phase 8, migration 0006)
+- `premium_active_for(uuid)`: the single definition of "has Premium right now". `has_premium()` (used by every policy) now calls it for the signed-in user, and the admin screens call it for each listed person, so they cannot disagree. Not callable by users.
+- Read functions, each re-checking `is_admin()` and raising 42501 for anyone else (anonymous visitors cannot execute them at all): `admin_list_users`, `admin_user_detail` (audit-logged), `admin_list_payments`, `admin_list_webhooks`, `admin_stats`. Page size is capped at 100, filters are checked against fixed lists, search text has `%`, `_` and `\` escaped.
+- `admin_end_paid_access(target, reason)`: ends paid, cancelled or trial access after a refund done in Paystack; marks the payment status `refunded`; never touches founding members or complimentary access; audit-logged.
+- Admins can see accounts, plans, payments and webhook results. They cannot see businesses, customers, jobs, products or saved calculations.
+- Revenue figures are verified successful NGN payments only. Paystack fees are not deducted and refunds are not subtracted.

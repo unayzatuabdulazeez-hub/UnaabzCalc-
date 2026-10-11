@@ -68,3 +68,10 @@ See `docs/KNOWN_LIMITATIONS.md`. In short: pages not yet run against real Supaba
 - Redirects to Paystack are checked to be https on paystack.com; the callback requires the signed-in owner of the payment.
 - CSP: `form-action` now allows `https://*.paystack.com` (needed for the redirect to checkout); Google ad domains are allowed only when `ADSENSE_PUBLISHER_ID` is set. Untested with real ads.
 - Not enforced: Paystack's source IP list (the signature is the check).
+
+## Admin screens (Phase 8)
+- Two locks: every admin page and action calls `requireAdmin()` (a 404 for non-admins), and every admin database function re-checks `is_admin()` itself. The "Admin" link on the workspace page is a convenience only.
+- Admin rights live in `admin_users`, which no API user can write. Admins have no access to anyone's business records.
+- Every admin change needs a written reason and is appended to the audit log (which cannot be edited or deleted). Opening a person's detail page is logged too.
+- Webhook bodies and hashes are never shown, and payment-record contents are limited to what the screens need.
+- Search and filters: values are checked or escaped before they reach the database; page size is capped.

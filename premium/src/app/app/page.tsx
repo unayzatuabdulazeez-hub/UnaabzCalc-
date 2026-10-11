@@ -4,6 +4,7 @@ import { Notice } from "../notice";
 import { createClient } from "@/lib/supabase/server";
 import { resolveEntitlement } from "@/lib/entitlements/resolve";
 import { createBusiness, signOut } from "./actions";
+import { isAdminUser } from "@/lib/server/admin";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +18,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
     supabase.from("entitlements").select("status,trial_start,trial_end,subscription_start,subscription_end,payment_status,cancellation_status").eq("user_id", user.id).maybeSingle(),
     supabase.from("businesses").select("id,name,business_type,currency,archived_at").is("archived_at", null).order("created_at", { ascending: true }),
   ]);
+  const admin = await isAdminUser(supabase); // only decides whether to SHOW the link; the admin pages check again
   const plan = resolveEntitlement(ent); // decided on the server from the database row
 
   return (
@@ -24,7 +26,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
       <h1>Your workspace</h1>
       <Notice code={sp.m} />
       <div className="card">
-        <strong>Plan:</strong> {plan.hasPremium ? "Premium" : "Free"} <span className="muted">({plan.effective}{plan.premiumUntil ? `, until ${plan.premiumUntil.toISOString().slice(0, 10)}` : ""})</span> · <Link href="/app/billing">Billing</Link>{!plan.hasPremium && <> · <Link href="/app/upgrade">Get Premium</Link></>}
+        <strong>Plan:</strong> {plan.hasPremium ? "Premium" : "Free"} <span className="muted">({plan.effective}{plan.premiumUntil ? `, until ${plan.premiumUntil.toISOString().slice(0, 10)}` : ""})</span> · <Link href="/app/billing">Billing</Link>{!plan.hasPremium && <> · <Link href="/app/upgrade">Get Premium</Link></>}{admin && <> · <Link href="/app/admin">Admin</Link></>}
       </div>
       <h2>Your businesses</h2>
       {businesses && businesses.length > 0 ? (

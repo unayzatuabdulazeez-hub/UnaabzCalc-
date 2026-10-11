@@ -53,3 +53,11 @@ Object.assign(MESSAGES, {
   no_subscription: { text: "There is no recurring subscription on your account to manage.", kind: "err" },
   manage_failed: { text: "We could not open the subscription page. Please try again.", kind: "err" },
 });
+Object.assign(MESSAGES, {
+  admin_reason: { text: "Write a reason of 3 to 500 characters.", kind: "err" },
+  admin_days: { text: "Enter a whole number of days from 1 to 365.", kind: "err" },
+  admin_refused: { text: "That change was not allowed for this account. Nothing was changed.", kind: "err" },
+  admin_granted: { text: "Free Premium given.", kind: "ok" },
+  admin_revoked: { text: "Free Premium ended.", kind: "ok" },
+  admin_ended: { text: "Paid access ended and marked as refunded.", kind: "ok" },
+});
