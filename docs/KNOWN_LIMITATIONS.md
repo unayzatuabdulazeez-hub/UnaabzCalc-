@@ -42,3 +42,8 @@
 41. There is no screen yet for adding or removing admins: the first admin is added directly in Supabase (see docs/SCHEMA.md). A founding member's status can only be changed in Supabase.
 42. Admins cannot edit a person's name, e-mail or password, delete accounts, or send e-mail from the app.
 43. There is no export of the user or payment lists, and no chart; revenue is shown as a table by month.
+44. No `package-lock.json` and no `npm audit` could be run here (package registries blocked). Generate the lockfile and audit on first install.
+45. The content security policy still allows inline scripts/styles (`unsafe-inline`); tightening it needs nonces and a real build.
+46. The six-width responsive test is a static render of pages with mock data in Chromium. It does not click, type, or use real phones, Safari or Firefox.
+47. Privacy policy and terms pages do not exist yet; add them before taking real payments.
+48. Whether Paystack's renewal `charge.success` includes the plan code is assumed, not confirmed; renewals without it are rejected. Test with a real test-mode subscription.

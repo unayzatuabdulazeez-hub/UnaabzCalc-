@@ -28,7 +28,7 @@ export async function startCheckout() {
     if (!planMatchesPrice(await api.fetchPlan(cfg.planCode), price)) redirect("/app/upgrade?m=plan_mismatch"); // redirect() throws, so it must not be caught below
     const reference = newReference(randomBytes(12).toString("hex"));
     const { error } = await adminClient().rpc("create_checkout_payment", { p_user: user.id, p_reference: reference, p_expected_kobo: price.amountKobo, p_plan_code: cfg.planCode });
-    if (error) throw new Error("could not record the checkout");
+    if (error) { if (/too many unfinished/i.test(error.message ?? "")) redirect("/app/upgrade?m=checkout_busy"); throw new Error("could not record the checkout"); }
     url = await api.initialize({ email: user.email, amountKobo: price.amountKobo, planCode: cfg.planCode, reference, callbackUrl: `${publicEnv().appUrl}/billing/callback`, userId: user.id });
   } catch (e) {
     if (isRedirect(e)) throw e;

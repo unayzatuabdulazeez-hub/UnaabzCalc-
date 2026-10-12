@@ -69,3 +69,6 @@ No migration was needed: the column accepts any lowercase-hyphen id, and the app
 - `admin_end_paid_access(target, reason)`: ends paid, cancelled or trial access after a refund done in Paystack; marks the payment status `refunded`; never touches founding members or complimentary access; audit-logged.
 - Admins can see accounts, plans, payments and webhook results. They cannot see businesses, customers, jobs, products or saved calculations.
 - Revenue figures are verified successful NGN payments only. Paystack fees are not deducted and refunds are not subtracted.
+
+## Checkout limit (Phase 9, migration 0007)
+`create_checkout_payment` now refuses a sixth pending checkout by the same person within an hour ("too many unfinished"); the app shows `checkout_busy`.

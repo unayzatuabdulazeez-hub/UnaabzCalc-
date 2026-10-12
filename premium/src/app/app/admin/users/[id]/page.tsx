@@ -25,18 +25,18 @@ export default async function UserDetail({ params, searchParams }: { params: Pro
   return (
     <>
       <p><Link href="/app/admin/users">All users</Link></p>
-      <h1>{d.email ?? "Account"}</h1>
+      <h1 style={{ overflowWrap: "anywhere" }}>{d.email ?? "Account"}</h1>
       <Notice code={sp.m} />
       <div className="card">
-        {d.full_name && <div className="row"><span>Name</span><b>{d.full_name}</b></div>}
+        {d.full_name && <div className="row"><span>Name</span><b className="wrapv">{d.full_name}</b></div>}
         <div className="row"><span>Joined</span><b>{lagosDateTime(d.signed_up)}</b></div>
         <div className="row"><span>Plan</span><b>{d.status.replace("_", " ")}{d.cancellation_status === "scheduled" ? " (won't renew)" : ""}</b></div>
         <div className="row"><span>Has Premium now</span><b className={d.premium_now ? "good" : ""}>{d.premium_now ? "Yes" : "No"}</b></div>
         <div className="row"><span>Paid until (Lagos)</span><b>{lagosDateTime(d.subscription_end) || "n/a"}</b></div>
         <div className="row"><span>Payment status</span><b>{d.payment_status}</b></div>
-        {d.grant_reason && <div className="row"><span>Last admin note</span><b>{d.grant_reason}</b></div>}
-        <div className="row"><span>Paystack customer</span><b>{d.paystack_customer_code ?? "not linked"}</b></div>
-        <div className="row"><span>Paystack subscription</span><b>{d.paystack_subscription_code ?? "none"}</b></div>
+        {d.grant_reason && <div className="row"><span>Last admin note</span><b className="wrapv">{d.grant_reason}</b></div>}
+        <div className="row"><span>Paystack customer</span><b className="wrapv">{d.paystack_customer_code ?? "not linked"}</b></div>
+        <div className="row"><span>Paystack subscription</span><b className="wrapv">{d.paystack_subscription_code ?? "none"}</b></div>
       </div>
       <p className="hint">Admins see account, plan and payment details only. A person&apos;s customers, jobs, products and saved calculations are not available here.</p>
 

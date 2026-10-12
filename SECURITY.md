@@ -75,3 +75,6 @@ See `docs/KNOWN_LIMITATIONS.md`. In short: pages not yet run against real Supaba
 - Every admin change needs a written reason and is appended to the audit log (which cannot be edited or deleted). Opening a person's detail page is logged too.
 - Webhook bodies and hashes are never shown, and payment-record contents are limited to what the screens need.
 - Search and filters: values are checked or escaped before they reach the database; page size is capped.
+
+## Phase 9 review summary
+Database and code audits (see docs/SECURITY_REVIEW.md): every table has row-level security; every security-definer function pins its search path and is not callable by anonymous users; server-only secrets are confined to listed files; every server action checks the signed-in user. Added a limit of 5 unfinished checkouts per hour and a bounded webhook body reader. Not done: dependency audit, penetration test, CSP nonces.

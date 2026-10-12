@@ -28,11 +28,11 @@ export default async function Jobs({ params, searchParams }: { params: Promise<{
   const nameOf = new Map((customers ?? []).map((c) => [c.id, c.name]));
   const choices = (customers ?? []).filter((c) => !c.archived_at);
   const canWrite = plan.hasPremium;
-  const customerSelect = (selected: string | null) => (
-    <select name="customer_id" defaultValue={selected ?? ""}><option value="">No customer</option>{choices.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
+  const customerSelect = (selected: string | null, id?: string) => (
+    <select id={id} name="customer_id" defaultValue={selected ?? ""}><option value="">No customer</option>{choices.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
   );
-  const statusSelect = (selected: string) => (
-    <select name="status" defaultValue={selected}>{JOB_STATUSES.map((s) => <option key={s} value={s}>{LABEL[s]}</option>)}</select>
+  const statusSelect = (selected: string, id?: string) => (
+    <select id={id} name="status" defaultValue={selected}>{JOB_STATUSES.map((s) => <option key={s} value={s}>{LABEL[s]}</option>)}</select>
   );
   return (
     <>
@@ -67,8 +67,8 @@ export default async function Jobs({ params, searchParams }: { params: Promise<{
         <h2>Add a job</h2>
         <form action={addJob.bind(null, id)}>
           <label htmlFor="title">Title</label><input id="title" name="title" required maxLength={160} />
-          <label htmlFor="customer_id">Customer (optional)</label>{customerSelect(null)}
-          <label htmlFor="status">Status</label>{statusSelect("quote")}
+          <label htmlFor="customer_id">Customer (optional)</label>{customerSelect(null, "customer_id")}
+          <label htmlFor="status">Status</label>{statusSelect("quote", "status")}
           <label htmlFor="agreed_amount">Agreed amount (₦, optional)</label><input id="agreed_amount" name="agreed_amount" inputMode="decimal" />
           <label htmlFor="due_date">Due date (optional)</label><input id="due_date" name="due_date" type="date" />
           <label htmlFor="description">Description (optional)</label><textarea id="description" name="description" maxLength={2000} rows={3} />

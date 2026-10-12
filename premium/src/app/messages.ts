@@ -61,3 +61,4 @@ Object.assign(MESSAGES, {
   admin_revoked: { text: "Free Premium ended.", kind: "ok" },
   admin_ended: { text: "Paid access ended and marked as refunded.", kind: "ok" },
 });
+Object.assign(MESSAGES, { checkout_busy: { text: "You have several unfinished payments. Please finish one, or wait an hour and try again.", kind: "err" } });

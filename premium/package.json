@@ -14,8 +14,9 @@
     "test": "node --import tsx --test tests/*.test.ts",
     "test:db": "bash supabase/tests/run_rls_tests.sh",
     "test:free": "node ../free/test.js",
-    "test:all": "npm run test:free && npm run test && npm run test:db",
-    "gen:parity": "tsx scripts/gen-parity-sql.ts"
+    "test:all": "npm run test:free && npm run test && npm run test:db && npm run test:render",
+    "gen:parity": "tsx scripts/gen-parity-sql.ts",
+    "test:render": "tsx --tsconfig scripts/render/tsconfig.json scripts/render/render-pages.ts .render && python3 scripts/render/render-check.py .render .render/shots"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",

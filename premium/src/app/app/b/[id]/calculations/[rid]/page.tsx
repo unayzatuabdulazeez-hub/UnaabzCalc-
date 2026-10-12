@@ -57,7 +57,7 @@ export default async function OneCalculation({ params, searchParams }: { params:
             <a href={whatsappLink(text)} target="_blank" rel="noopener noreferrer">Share on WhatsApp</a>{" · "}
             <a href={mailtoLink(row.title, text)}>Share by email</a>
           </p>
-          <details><summary>Copy as text</summary><textarea readOnly rows={8} defaultValue={text} /></details>
+          <details><summary>Copy as text</summary><textarea readOnly rows={8} defaultValue={text} aria-label="Result as plain text" /></details>
         </>)}
       </>)}
       <h2>Manage</h2>

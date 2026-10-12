@@ -153,3 +153,15 @@ test("ads: only Free users, on content pages, with a real publisher id and slot 
   assert.equal(adsensePublisherId({ ADSENSE_PUBLISHER_ID: "ca-pub-xxxx" }), null);
   assert.equal(adsenseSlotId({ ADSENSE_SLOT_ID: "1234567890" }), "1234567890"); assert.equal(adsenseSlotId({}), null);
 });
+
+// ---------- bounded body reading ----------
+import { readLimitedText } from "../src/lib/payments/read-body";
+test("read-body: reads normal bodies, refuses oversized ones even when no length header is sent, handles empty and multi-byte text", async () => {
+  const mk = (b: BodyInit | null) => new Request("http://x.test/", { method: "POST", body: b });
+  assert.equal(await readLimitedText(mk("hello ₦"), 100), "hello ₦");
+  assert.equal(await readLimitedText(mk(null), 100), "");
+  assert.equal(await readLimitedText(mk("x".repeat(101)), 100), null);
+  assert.equal(await readLimitedText(mk("x".repeat(100)), 100), "x".repeat(100), "exactly the limit is allowed");
+  const chunked = new ReadableStream<Uint8Array>({ pull(c) { c.enqueue(new Uint8Array(40)); } }); // never ends
+  assert.equal(await readLimitedText({ body: chunked }, 100), null, "an endless stream is cut off");
+});

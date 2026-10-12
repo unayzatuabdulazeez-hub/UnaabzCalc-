@@ -1,44 +1,56 @@
-# Deployment and costs
+# Deployment, costs and go-live checklist
 
-## Accounts you must own
-GitHub (code), Supabase (database + auth), hosting account (Vercel or alternative), Paystack (payments), Google AdSense (ads), domain registrar (later). All in your name.
+**Status: nothing is deployed and nothing is paid for.** Do these steps in order, on **development** projects first. Never skip the test-mode payment run.
 
-## Environments
-Local (laptop + a Supabase *development* project + Paystack *test* keys) -> Staging (optional second Supabase project + preview deploy) -> Production (separate project, live keys). Never share keys across environments.
+## 1. Accounts you must own (all in your name)
+GitHub (code, done), Supabase (database and sign-in), Vercel or another host (the app), Paystack (payments), Google AdSense (ads, optional), a domain registrar (later).
 
-## Current decision: nothing paid yet
-No domain bought, no paid hosting enabled. Build and test locally on free tiers.
-
-## Premium price (decided)
-Launch price: **NGN 4,999 per month**, no trial at launch. It lives in the `app_settings` table (499900 kobo, Paystack's unit), not in code,
-and changes only through the audited admin function `admin_set_premium_price()` (valid range NGN 100 to NGN 1,000,000). When Paystack is
-connected (Phase 7), the Paystack plan amount must be set to match. A Business/Pro split is planned for V2 and is not built.
-At NGN 4,999, roughly NGN 4,750 per subscriber remains after Paystack's fee (about 1.5% + NGN 100; **verify**). Covering about NGN 68,000
-per month of hosting and database (about US$45 at about NGN 1,500 per dollar; **both figures unverified**) needs about 15 paying subscribers.
-
-## Expected costs before production (**not verified**)
-I could not open the official pricing pages in this session, so the figures below are from general knowledge and **must be re-checked** before you pay anything.
-| Service | Why it may cost | Rough figure (verify) | Matters |
+## 2. What it costs (checked 2026-10-12 against the providers' own pages; prices change, so re-check before you pay)
+| Service | Plan | Price | Why it matters |
 |---|---|---|---|
-| Vercel | Hobby (free) plans are for **personal, non-commercial** use. A paid subscription product should use a paid plan or another host. | Pro about US$20 per month per member | Read Vercel's current terms |
-| Supabase | Free tier fine for development. Production should use Pro for backups, no inactivity pausing, and higher limits. | Pro about US$25 per month | Free projects can pause when inactive |
-| Domain | Needed for a professional URL, AdSense approval and Paystack live. | about US$10 to 20 per year | Buy only when ready |
-| Paystack | Percentage fee per successful payment, no monthly fee. | See Paystack's published pricing | Test mode is free |
-| AdSense | Free; pays you. Needs approval, privacy/terms pages and a real domain. | none | |
-Lower-cost alternative: keep Supabase free and host Premium on a host whose free tier permits commercial use, **after reading its terms**; trade-off is less reliability/backups. A person should decide this once real usage is known.
+| Supabase | Free | $0 | Fine for building. **Projects are paused after 1 week of inactivity**, 500 MB database, 2 projects. Not for a paid product. |
+| Supabase | Pro | from **$25/month** | 7 days of daily backups, no pausing. Use this for production. |
+| Vercel | Hobby | $0 | **Personal, non-commercial use only** (Vercel's own wording). Do not run a paid subscription product on it. |
+| Vercel | Pro | **$20 per developer seat/month** (plus usage) | The right plan for production. |
+| Paystack | Per payment | **1.5% + ₦100** per local transaction (₦100 waived under ₦2,500; fee capped at ₦2,000) | At ₦4,999 you receive about **₦4,824** per payment. No monthly fee. Test mode is free. |
+| Domain | per year | about $10 to 20 (not checked) | Needed for AdSense, live Paystack and a professional address. Buy only when ready. |
+| AdSense | free | none | Needs approval, a real domain, privacy and terms pages. |
+**Rough break-even:** Supabase Pro + one Vercel seat is about $45/month, about ₦67,500 at ₦1,500 per dollar (**check today's rate**). At about ₦4,824 net per subscriber that is roughly **14 paying subscribers** to cover hosting.
+Until you have paying customers you can build and test entirely on the free tiers.
 
-## Free site and Premium site routing (open decision)
-Option A (recommended): keep the Free app as its own deployment, link to it from Premium. Zero risk to Free. Option B: serve Free under `/free` inside the Premium project later via a rewrite, only after a reviewed migration and rollback plan.
+## 3. Environments
+Local (your laptop + a Supabase **development** project + Paystack **test** keys), then production (a separate Supabase project, live keys, a real domain). **Never reuse keys between environments.**
 
-## Deploy steps (when approved)
-1. Push repo to your GitHub. 2. Import in the host, set **Root Directory = `premium`**. 3. Add env vars (`.env.example` names) per environment. 4. Apply migrations to the target Supabase project after a backup. 5. Set Supabase Site URL and Redirect URLs to the real domain. 6. Run the production verification checklist below.
+## 4. Set-up, step by step (development first)
+1. **Supabase:** create a project. Copy Project URL, `anon` key and `service_role` key (Project Settings, API). The `service_role` key is a secret: it goes only in `.env.local` and the host's secret settings, never in code or chat.
+2. **Database:** in Supabase's SQL Editor run the files in `premium/supabase/migrations/` **in order, one at a time** (`0001` to `0007`). On production, take a backup first.
+3. **First admin:** after you register in the app, run the one-line statement in `docs/SCHEMA.md` ("Making yourself the first admin").
+4. **Sign-in e-mails:** in Supabase, Authentication, URL Configuration: set Site URL and add `<your-url>/auth/confirm` to Redirect URLs; paste the e-mail template links from `README.md`. Turn on **CAPTCHA protection** for sign-up and password reset (Authentication, Attack Protection).
+5. **Paystack (test mode):** follow `docs/PAYMENTS.md` (plan, webhook URL, keys). Set `SUPABASE_SERVICE_ROLE_KEY`, `PAYSTACK_SECRET_KEY`, `PAYSTACK_PLAN_CODE`.
+6. **Run locally:** `cd premium && npm install && npm run dev`. Commit the `package-lock.json` that `npm install` creates (none exists yet because the build sandbox could not run npm).
+7. **Run every test** (`npm run test:all`) and **click through the app yourself** using the checklist in `docs/HANDOVER.md`.
+8. **Host:** import the GitHub repo into Vercel, set **Root Directory = `premium`**, add the same environment variables there, deploy a **preview**, and repeat the click-through on the preview URL. Paystack's webhook needs this public URL.
 
-## Rollback
-Hosting: redeploy the previous successful deployment. Database: restore the pre-migration backup (write a down-migration for every migration that is not purely additive). Free app: untouched; restore from baseline tag/zip if needed.
+## 5. Going live (only after all of section 4 passes)
+Production Supabase project (Pro plan), migrations applied after a backup, live Paystack keys and a new live plan whose amount equals the price setting, real domain, Supabase Site URL updated, Paystack live webhook URL set, privacy and terms pages published. Then tick every box below.
 
-## Production verification checklist (all must be ticked; none are yet)
-- [ ] Env vars set; no test keys or secrets exposed  - [ ] Migrations applied after backup  - [ ] Sign-up, login, reset work on the live URL
-- [ ] RLS enabled and re-tested on the live project  - [ ] Paystack TEST run completed (docs/PAYMENTS.md) before live keys; live webhook URL set; duplicates ignored; plan amount equals the price setting
-- [ ] Entitlements change only on the server  - [ ] Errors/logs/monitoring in place  - [ ] Mobile + desktop layouts checked
-- [ ] Privacy and terms pages live  - [ ] AdSense publisher id real and ads hidden for Premium
-A successful build alone does not prove any of this.
+## 6. Where the Free app lives
+The live Free app is on AppDeploy (see `docs/FREE_APP_VERIFICATION.md`); GitHub `main` holds an older copy. Keep Free as its own deployment and link to it from Premium. Do not overwrite it. Decide later whether to move it.
+
+## 7. Rollback
+Hosting: redeploy the previous good deployment in Vercel. Database: restore the pre-migration backup (Supabase Pro keeps 7 days). Payments: switch back to test keys or remove `PAYSTACK_PLAN_CODE` and payments turn off. Free app: untouched.
+
+## 8. Go-live checklist (none ticked yet)
+- [ ] `npm run test:all` passes on the exact commit being deployed
+- [ ] A person other than the author has read `docs/SECURITY_REVIEW.md` and the code paths it lists
+- [ ] `package-lock.json` committed; `npm audit` reviewed
+- [ ] Test-mode payment run completed (pay, renew, cancel, duplicate webhook, wrong amount) and **the renewal payload question in `docs/PAYMENTS.md` answered**
+- [ ] Live keys only in the host's secret settings; none in the repo (`git log -p | grep sk_live` finds nothing)
+- [ ] Sign-up, e-mail confirmation and password reset work on the live URL
+- [ ] RLS audit (`80_security_audit.sql`) run against the live project and passes
+- [ ] First admin added; a normal account gets a 404 on `/app/admin`
+- [ ] Phone, tablet and laptop click-through done on the real site (see `docs/RESPONSIVE_TESTS.md`)
+- [ ] Privacy and terms pages live; AdSense approved and ids set (or ads left off)
+- [ ] Backups confirmed (Supabase Pro) and a restore tried once
+- [ ] Someone watches `/app/admin/webhooks` for problems after launch (see `docs/OPERATIONS.md`)
+A successful build alone proves none of this.

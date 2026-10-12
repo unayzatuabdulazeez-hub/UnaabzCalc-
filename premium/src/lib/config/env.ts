@@ -1,7 +1,7 @@
 /**
  * Environment validation. Error messages name the variable and the problem, NEVER the value.
  * Pass a plain object (not process.env directly) so tests can exercise it and so Next.js can inline
- * NEXT_PUBLIC_* values into the browser bundle (it only does so for literal `process.env.NEXT_PUBLIC_X` reads).
+ * NEXT_PUBLIC_* values into the browser bundle (it only does so for reads written out in full, one variable name at a time).
  */
 export class EnvError extends Error {
   constructor(public readonly problems: string[]) {

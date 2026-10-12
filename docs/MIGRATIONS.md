@@ -7,6 +7,7 @@
 | `0004_saved_calculations.sql` | saved_calculations (inputs only, engine version, optional links to a customer, job and product in the same business) | same | not yet |
 | `0005_payments.sql` | payments (own-read), webhook_events, and service-role-only functions to record a checkout, apply a verified charge, apply subscription events, de-duplicate webhooks | same | not yet |
 | `0006_admin.sql` | admin read functions (users, payments, webhooks, statistics), end paid access after a refund, one shared Premium check used by policies and admin screens | same | not yet |
+| `0007_checkout_limit.sql` | checkout creation limited to 5 unfinished attempts per person per hour | same | not yet |
 
 Rules: one new numbered file per change; never edit an applied migration; take a backup before touching production
 (free Supabase projects have no downloadable automatic backups, so export with `pg_dump` first). Requires PostgreSQL 15+.
