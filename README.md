@@ -77,3 +77,5 @@ More: `docs/HANDOVER.md`, `docs/OPERATIONS.md`, `DEPLOYMENT.md`, `SECURITY.md`, 
 - `premium/src/lib/calc/premium-engine.ts`: pure functions (no UI, database, network) for the 5 advanced calculators and 3 estimators. Every figure is typed by the user.
 - `premium/src/lib/calc/{advanced,estimators,adapters,kit}.ts`: field definitions, form cleaning and on-screen formatting.
 To add a calculator: write the maths in `premium-engine.ts`, add an adapter, add a sample in `tests/samples.ts`, and add hand-calculated tests.
+
+> Note: the old root `index.html` (13-calculator Free file) was removed from this branch to avoid confusion. It is still on `main` and in the `free-14-calculators` branch's `archive/` folder. The current Free app is in `free/`; Premium is in `premium/`.
