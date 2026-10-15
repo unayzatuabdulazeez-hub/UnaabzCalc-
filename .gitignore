@@ -1,0 +1,19 @@
+# secrets: never commit real credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+service-account*.json
+# dependencies / build output
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+# misc
+.DS_Store
+npm-debug.log*
+.vercel
+coverage/
+.render/
