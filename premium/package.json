@@ -1,0 +1,39 @@
+{
+  "name": "unaabzcalc-premium",
+  "version": "0.1.0-phase1",
+  "private": true,
+  "description": "UnaabzCalc Premium V1 (Phase 1: foundation)",
+  "scripts": {
+    "sync-engine": "node scripts/sync-engine.mjs",
+    "predev": "node scripts/sync-engine.mjs",
+    "dev": "next dev",
+    "prebuild": "node scripts/sync-engine.mjs",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "test:db": "bash supabase/tests/run_rls_tests.sh",
+    "test:free": "node ../free/test.js",
+    "test:all": "npm run test:free && npm run test && npm run test:db && npm run test:render",
+    "gen:parity": "tsx scripts/gen-parity-sql.ts",
+    "test:render": "tsx --tsconfig scripts/render/tsconfig.json scripts/render/render-pages.ts .render && python3 scripts/render/render-check.py .render .render/shots"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
