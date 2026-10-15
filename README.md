@@ -78,4 +78,4 @@ More: `docs/HANDOVER.md`, `docs/OPERATIONS.md`, `DEPLOYMENT.md`, `SECURITY.md`, 
 - `premium/src/lib/calc/{advanced,estimators,adapters,kit}.ts`: field definitions, form cleaning and on-screen formatting.
 To add a calculator: write the maths in `premium-engine.ts`, add an adapter, add a sample in `tests/samples.ts`, and add hand-calculated tests.
 
-> Note: the old root `index.html` (13-calculator Free file) was removed from this branch to avoid confusion. It is still on `main` and in the `free-14-calculators` branch's `archive/` folder. The current Free app is in `free/`; Premium is in `premium/`.
+> Layout of `main`: the root holds the current 14-calculator Free app (`index.html`, `app.js`, `calc-engine.js`, `vercel.json`) so the existing Free deployment keeps working. `free/` is the frozen copy that Premium is built on, `premium/` is Premium V1, `docs/` has the guides, and `archive/` keeps the old 13-calculator file. Tag `main-before-premium-merge` marks `main` as it was before Premium was merged.
